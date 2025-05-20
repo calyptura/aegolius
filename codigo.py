@@ -1164,41 +1164,27 @@ def main():
 
     # Coluna 3: Rankings e análises específicas por dia
     with col3:
-        # Mapa do JB-SP
+                # Mapa do JB-SP
         st.subheader("Hotspot")
         
         # Coordenadas do JB-SP
         lat_jbsp = -23.6385
         lon_jbsp = -46.6232
         
-        # Criar mapa com Folium com zoom mais baixo (era 15, vamos para 13)
+        # Criar mapa com Folium com a configuração original
         m = folium.Map(
-            location=[lat_jbsp, lon_jbsp],  # Coordenadas centrais
-            zoom_start=13,                  # Zoom mais baixo para ver mais área
+            location=[lat_jbsp, lon_jbsp],
+            zoom_start=15,  # Mantendo o zoom original
             tiles='OpenStreetMap'
         )
         
-        # Adicionar marcador para o JB-SP com ícone mais visível
+        # Adicionar marcador para o JB-SP
         folium.Marker(
             location=[lat_jbsp, lon_jbsp],
             popup='Jardim Botânico de São Paulo',
             tooltip=folium.Tooltip('PEFI--Jardim Botânico de São Paulo', permanent=True),
-            icon=folium.Icon(color='green', icon='leaf', prefix='fa', icon_size=(25, 25))  # Ícone maior
+            icon=folium.Icon(color='green', icon='leaf', prefix='fa')
         ).add_to(m)
-        
-        # Adicionar um círculo ao redor do ponto para destacá-lo mais
-        folium.Circle(
-            location=[lat_jbsp, lon_jbsp],
-            radius=200,  # 200 metros
-            color='green',
-            fill=True,
-            fill_color='green',
-            fill_opacity=0.2
-        ).add_to(m)
-        
-        # Forçar o mapa a se ajustar para mostrar o marcador
-        # Esta linha é crucial para garantir que o ponto seja visível
-        m.fit_bounds([[lat_jbsp-0.01, lon_jbsp-0.01], [lat_jbsp+0.01, lon_jbsp+0.01]])
         
         # Adicionar camada de satélite
         folium.TileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
@@ -1207,29 +1193,19 @@ def main():
         
         # Adicionar controle de camadas
         folium.LayerControl().add_to(m)
-    
         
-        # ABORDAGEM DIFERENTE: Remover divisor e usar CSS para controlar o mapa
+        # CSS menos invasivo que apenas controla as margens, sem afetar o conteúdo
         css = """
         <style>
-            iframe {
-                height: 300px !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
             div.stFolium {
-                margin-bottom: 0 !important;
-                padding-bottom: 0 !important;
+                margin-bottom: -10px !important;
             }
         </style>
         """
         st.markdown(css, unsafe_allow_html=True)
         
-        # Exibir mapa (sem altura explícita para o mapa)
-        st_folium(m)
-        
-        # Próxima seção sem divisor nem espaçador
-        st.subheader("Efeito Avistar")
+        # Exibir mapa com a configuração original
+        st_folium(m, height=300, width=800, returned_objects=[])
 
         # Histórico mensal de listas
         st.subheader("Efeito Avistar")
