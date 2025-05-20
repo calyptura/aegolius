@@ -1164,21 +1164,17 @@ def main():
 
     # Coluna 3: Rankings e análises específicas por dia
     with col3:
-                       # Mapa do JB-SP
+                               # Mapa do JB-SP
         st.subheader("Hotspot")
         
         # Coordenadas do JB-SP
         lat_jbsp = -23.6385
         lon_jbsp = -46.6232
         
-        # Criar mapa com Folium com a configuração original
-        m = folium.Map(
-            location=[lat_jbsp, lon_jbsp],
-            zoom_start=15,
-            tiles='OpenStreetMap'
-        )
+        # Criar mapa com Folium (sem altura explícita)
+        m = folium.Map(location=[lat_jbsp, lon_jbsp], zoom_start=10, tiles='OpenStreetMap')
         
-        # Adicionar marcador para o JB-SP
+        # Adicionar marcador e camadas
         folium.Marker(
             location=[lat_jbsp, lon_jbsp],
             popup='Jardim Botânico de São Paulo',
@@ -1186,19 +1182,33 @@ def main():
             icon=folium.Icon(color='green', icon='leaf', prefix='fa')
         ).add_to(m)
         
-        # Adicionar camada de satélite
         folium.TileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
                         attr='Google Satellite',
                         name='Google Satellite').add_to(m)
         
-        # Adicionar controle de camadas
         folium.LayerControl().add_to(m)
         
-        # Exibir mapa com configuração específica
-        output = st_folium(m, height=300, width="100%")
+        # ABORDAGEM DIFERENTE: Remover divisor e usar CSS para controlar o mapa
+        css = """
+        <style>
+            iframe {
+                height: 300px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            div.stFolium {
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+        </style>
+        """
+        st.markdown(css, unsafe_allow_html=True)
         
-        # Usando HTML direto para criar um elemento de altura fixa negativa para compensar o espaço
-        st.markdown('<div style="margin-top:-20px;"></div>', unsafe_allow_html=True)
+        # Exibir mapa (sem altura explícita para o mapa)
+        st_folium(m)
+        
+        # Próxima seção sem divisor nem espaçador
+        st.subheader("Efeito Avistar")
         
 
         # Histórico mensal de listas
