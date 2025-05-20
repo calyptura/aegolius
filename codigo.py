@@ -1191,7 +1191,10 @@ def main():
         folium.LayerControl().add_to(m)
 
         # Exibir mapa
-        st_folium(m, height=300)
+        st_folium(m, height=300, width=800, returned_objects=[])
+
+        # Adicionar pequeno espaçador
+        st.markdown("&nbsp;", unsafe_allow_html=True)
 
         st.divider()
 
