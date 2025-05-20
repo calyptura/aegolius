@@ -1207,7 +1207,7 @@ def main():
         # Exibir mapa (sem altura explícita para o mapa)
         st_folium(m)
 
-         st.divider()
+        st.divider()
         
         # Próxima seção sem divisor nem espaçador
         st.subheader("Efeito Avistar")
