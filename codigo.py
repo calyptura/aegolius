@@ -903,6 +903,8 @@ def main():
             border=True
         )
 
+        st.divider()
+        
         # Top espécies
         st.subheader(f"Top Espécies")
         top_species = get_top_species(sheets_data, start_datetime, end_datetime, limit=10)
@@ -927,6 +929,8 @@ def main():
         else:
             st.info("Não há dados suficientes para gerar o ranking de espécies.")
 
+        st.divider()
+        
         # Top observadores
         st.subheader(f"Top Passarinhantes por Espécies")
         top_observers = get_top_observers(sheets_data, start_datetime, end_datetime, limit=10)
@@ -951,6 +955,8 @@ def main():
         else:
             st.info("Não há dados suficientes para gerar o ranking de observadores.")
 
+        st.divider()
+        
         # Top observadores por listas
         st.subheader(f"Top Passarinhantes por Listas")
         top_observers_lists = get_top_observers_by_lists(sheets_data, start_datetime, end_datetime, limit=10)
@@ -1125,6 +1131,8 @@ def main():
         else:
             st.info("Não há registros de listas para o período selecionado.")
 
+        st.divider()
+        
         # Na seção onde exibimos a tabela de espécies
         st.subheader("Todas as Espécies Registradas")
         all_species = get_all_species(sheets_data, start_datetime, end_datetime)
@@ -1304,6 +1312,8 @@ def main():
         # Exibir gráfico
         st.plotly_chart(fig, use_container_width=True)
 
+        st.divider()
+        
         # Exibir painéis para cada dia
         for i, dia in enumerate(dias_evento):
             # Formatar a data para exibição
