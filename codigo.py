@@ -1171,22 +1171,43 @@ def main():
         lat_jbsp = -23.6385
         lon_jbsp = -46.6232
         
-        # Criar mapa com Folium (sem altura explícita)
-        m = folium.Map(location=[lat_jbsp, lon_jbsp], zoom_start=15, tiles='OpenStreetMap')
+        # Criar mapa com Folium com zoom mais baixo (era 15, vamos para 13)
+        m = folium.Map(
+            location=[lat_jbsp, lon_jbsp],  # Coordenadas centrais
+            zoom_start=13,                  # Zoom mais baixo para ver mais área
+            tiles='OpenStreetMap'
+        )
         
-        # Adicionar marcador e camadas
+        # Adicionar marcador para o JB-SP com ícone mais visível
         folium.Marker(
             location=[lat_jbsp, lon_jbsp],
             popup='Jardim Botânico de São Paulo',
             tooltip=folium.Tooltip('PEFI--Jardim Botânico de São Paulo', permanent=True),
-            icon=folium.Icon(color='green', icon='leaf', prefix='fa')
+            icon=folium.Icon(color='green', icon='leaf', prefix='fa', icon_size=(25, 25))  # Ícone maior
         ).add_to(m)
         
+        # Adicionar um círculo ao redor do ponto para destacá-lo mais
+        folium.Circle(
+            location=[lat_jbsp, lon_jbsp],
+            radius=200,  # 200 metros
+            color='green',
+            fill=True,
+            fill_color='green',
+            fill_opacity=0.2
+        ).add_to(m)
+        
+        # Forçar o mapa a se ajustar para mostrar o marcador
+        # Esta linha é crucial para garantir que o ponto seja visível
+        m.fit_bounds([[lat_jbsp-0.01, lon_jbsp-0.01], [lat_jbsp+0.01, lon_jbsp+0.01]])
+        
+        # Adicionar camada de satélite
         folium.TileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
                         attr='Google Satellite',
                         name='Google Satellite').add_to(m)
         
+        # Adicionar controle de camadas
         folium.LayerControl().add_to(m)
+    
         
         # ABORDAGEM DIFERENTE: Remover divisor e usar CSS para controlar o mapa
         css = """
