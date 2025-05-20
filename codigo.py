@@ -1192,7 +1192,7 @@ def main():
         css = """
         <style>
             iframe {
-                height: 300px !important;
+                height: 500px !important;
                 margin: 0 !important;
                 padding: 0 !important;
             }
