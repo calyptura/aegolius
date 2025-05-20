@@ -1209,10 +1209,6 @@ def main():
         
         # Próxima seção sem divisor nem espaçador
         st.subheader("Efeito Avistar")
-        
-
-        # Histórico mensal de listas
-        st.subheader("Efeito Avistar")
 
         # Obtém dados históricos de 11 meses + mês atual
         monthly_history = get_monthly_checklists_history(sheets_data, end_datetime, months_back=11)
