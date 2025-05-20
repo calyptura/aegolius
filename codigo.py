@@ -1164,7 +1164,7 @@ def main():
 
     # Coluna 3: Rankings e análises específicas por dia
     with col3:
-                # Mapa do JB-SP
+                       # Mapa do JB-SP
         st.subheader("Hotspot")
         
         # Coordenadas do JB-SP
@@ -1174,7 +1174,7 @@ def main():
         # Criar mapa com Folium com a configuração original
         m = folium.Map(
             location=[lat_jbsp, lon_jbsp],
-            zoom_start=15,  # Mantendo o zoom original
+            zoom_start=15,
             tiles='OpenStreetMap'
         )
         
@@ -1194,18 +1194,12 @@ def main():
         # Adicionar controle de camadas
         folium.LayerControl().add_to(m)
         
-        # CSS menos invasivo que apenas controla as margens, sem afetar o conteúdo
-        css = """
-        <style>
-            div.stFolium {
-                margin-bottom: -10px !important;
-            }
-        </style>
-        """
-        st.markdown(css, unsafe_allow_html=True)
+        # Exibir mapa com configuração específica
+        output = st_folium(m, height=300, width="100%")
         
-        # Exibir mapa com a configuração original
-        st_folium(m, height=300, width=800, returned_objects=[])
+        # Usando HTML direto para criar um elemento de altura fixa negativa para compensar o espaço
+        st.markdown('<div style="margin-top:-20px;"></div>', unsafe_allow_html=True)
+        
 
         # Histórico mensal de listas
         st.subheader("Efeito Avistar")
