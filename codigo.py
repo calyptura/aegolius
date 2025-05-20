@@ -1293,7 +1293,7 @@ def main():
         # Exibir painéis para cada dia
         for i, dia in enumerate(dias_evento):
             # Formatar a data para exibição
-            dia_formatado = dia.strftime('%d/%05/%Y')
+            dia_formatado = dia.strftime('%d/%m/%Y')
 
             # Título do dia
             st.markdown(f"#### {dia_formatado}")
