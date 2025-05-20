@@ -1193,7 +1193,7 @@ def main():
         # Exibir mapa
         st_folium(m, height=300)
 
-        # Após a seção do mapa na coluna 3
+        st.divider()
 
         # Histórico mensal de listas
         st.subheader("Efeito Avistar")
@@ -1214,6 +1214,8 @@ def main():
         else:
             st.info("Não há dados históricos suficientes para gerar o gráfico.")
 
+        st.divider()
+        
         # NOVA SEÇÃO - Resultados por dia
         st.subheader("Resultados por dia")
 
